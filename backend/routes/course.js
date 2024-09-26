@@ -1,4 +1,5 @@
 const express = require("express");
+const { course } = require("../controller/crouse");
 
 const router = express.Router();
 
