@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +9,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#FF3158] p-4">
+    <nav className="bg-[#FF3158] p-4 sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-white text-2xl font-bold">
@@ -18,35 +19,40 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center justify-center flex-grow">
           <a
-            href="#"
+            href="/"
             className="text-white hover:text-gray-200 transition duration-300 ease-in-out">
             Home
           </a>
           <a
-            href="#"
+            href="#course"
             className="text-white hover:text-gray-200 transition duration-300 ease-in-out">
-            About
+            Course
           </a>
           <a
-            href="#"
+            href="#faq"
             className="text-white hover:text-gray-200 transition duration-300 ease-in-out">
-            Services
+            FAQ
           </a>
           <a
-            href="#"
+            href="#testimonial"
             className="text-white hover:text-gray-200 transition duration-300 ease-in-out">
-            Contact
+            Testimonial
           </a>
         </div>
 
         {/* SignIn/Login buttons */}
         <div className="hidden md:flex space-x-4">
-          <button className="bg-white text-[#FF3158] px-4 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
+          {/* Use Link for navigation */}
+          <Link
+            to="/signup"
+            className="bg-white text-[#FF3158] px-4 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
             SignIn
-          </button>
-          <button className="bg-gray-200 text-[#FF3158] px-4 py-2 rounded hover:bg-gray-300 transition duration-300 ease-in-out">
+          </Link>
+          <Link
+            to="/login"
+            className="bg-gray-200 text-[#FF3158] px-4 py-2 rounded hover:bg-gray-300 transition duration-300 ease-in-out">
             Login
-          </button>
+          </Link>
         </div>
 
         {/* Hamburger Icon */}
@@ -64,7 +70,8 @@ const Navbar = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"></path>
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
@@ -76,33 +83,38 @@ const Navbar = () => {
           isOpen ? "block" : "hidden"
         }`}>
         <a
-          href="#"
+          href="/"
           className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300">
           Home
         </a>
         <a
-          href="#"
+          href="#course"
           className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300">
-          About
+          Course
         </a>
         <a
-          href="#"
+          href="#faq"
           className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300">
-          Services
+          FAQ
         </a>
         <a
-          href="#"
+          href="#testimonial"
           className="block px-4 py-2 text-white hover:bg-gray-700 transition duration-300">
-          Contact
+          Testimonial
         </a>
+
         {/* Mobile SignIn/Login */}
         <div className="px-4 py-2">
-          <button className="bg-white text-[#FF3158] w-full py-2 rounded mb-2 hover:bg-gray-100 transition duration-300">
+          <Link
+            to="/signup"
+            className="bg-white text-[#FF3158] w-full py-2 rounded mb-2 hover:bg-gray-100 transition duration-300">
             SignIn
-          </button>
-          <button className="bg-gray-200 text-[#FF3158] w-full py-2 rounded hover:bg-gray-300 transition duration-300">
+          </Link>
+          <Link
+            to="/login"
+            className="bg-gray-200 text-[#FF3158] w-full py-2 rounded hover:bg-gray-300 transition duration-300">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

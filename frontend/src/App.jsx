@@ -1,20 +1,21 @@
-import Achievement from "./components/Achievement";
-import Courses from "./components/Courses";
-import FAQ from "./components/FAQ";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Navbar from "./components/Navbar";
-import Testimonial from "./components/Testimonial";
+import SignInPage from "./components/auth/sign-in";
+import SignupPage from "./components/auth/sign-up";
 
 function App() {
   return (
-    <div className="mx-auto">
-      <Navbar />
-      <HomePage />
-      <Achievement />
-      <Courses />
-      <FAQ />
-      <Testimonial />
-    </div>
+    <Router>
+      <div className="mx-auto">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<SignInPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

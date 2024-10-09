@@ -4,7 +4,7 @@ import { ArrowDown, ArrowUpRight } from "lucide-react"; // Import Lucide icons
 
 export default function Testimonial() {
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-6">
+    <div id="testimonial" className="max-w-2xl mx-auto p-6 space-y-6">
       <div className="text-center">
         <Badge variant="secondary" className="text-pink-600">
           Student Feedback

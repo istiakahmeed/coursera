@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const FAQ = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div id="faq" className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8 items-center">
         <div className="relative">
           <img
