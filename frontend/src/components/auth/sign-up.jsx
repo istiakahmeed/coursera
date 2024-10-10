@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Loader } from "lucide-react"; // Lucide loader icon
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // SignUpPage Component
 export default function SignUpPage() {
@@ -21,22 +21,55 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [accountType, setAccountType] = useState("user");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null); // Error handling
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     setIsLoading(true);
-    // Simulate API call for sign up
-    console.log("SignUp form submitted:", {
-      username,
-      email,
-      password,
-      accountType,
-    });
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setError(null); // Reset the error state before making the request
 
-    // Handle the response from the API or validation
-    setIsLoading(false);
+    try {
+      // Send API request for sign up
+      const response = await fetch("/api/v1/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+        }),
+      });
+
+      // Check if the response has a valid JSON body
+      const contentType = response.headers.get("Content-Type");
+      let data;
+
+      if (contentType && contentType.includes("application/json")) {
+        // Parse JSON response
+        data = await response.json();
+      } else {
+        // Handle non-JSON response (e.g., empty body)
+        throw new Error("Server did not return a valid JSON response.");
+      }
+
+      if (response.ok) {
+        // If signup is successful, redirect to login page or another page
+        console.log("Signup successful:", data);
+        navigate("/login");
+      } else {
+        // Handle API errors
+        throw new Error(data.message || "Signup failed");
+      }
+    } catch (err) {
+      console.error("Signup error:", err);
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -110,11 +143,13 @@ export default function SignUpPage() {
             </div>
           </CardContent>
 
+          {/* Error Message */}
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+
           {/* Form Submit Button */}
           <CardFooter className="flex flex-col">
             <Button className="w-full" type="submit" disabled={isLoading}>
-              {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}{" "}
-              {/* Lucide Loader */}
+              {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
               {isLoading ? "Signing Up..." : "Sign Up"}
             </Button>
 

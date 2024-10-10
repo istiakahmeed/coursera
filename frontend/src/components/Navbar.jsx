@@ -3,9 +3,19 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Track login state
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  // Mock login/logout functions
+  // const login = () => {
+  //   setIsAuthenticated(true); // Simulate login
+  // };
+
+  const logout = () => {
+    setIsAuthenticated(false); // Handle logout by setting auth to false
   };
 
   return (
@@ -40,19 +50,37 @@ const Navbar = () => {
           </a>
         </div>
 
-        {/* SignIn/Login buttons */}
-        <div className="hidden md:flex space-x-4">
-          {/* Use Link for navigation */}
-          <Link
-            to="/signup"
-            className="bg-white text-[#FF3158] px-4 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
-            SignIn
-          </Link>
-          <Link
-            to="/login"
-            className="bg-gray-200 text-[#FF3158] px-4 py-2 rounded hover:bg-gray-300 transition duration-300 ease-in-out">
-            Login
-          </Link>
+        {/* Authenticated (Profile and Logout) vs Non-authenticated (Login/Signup) */}
+        <div className="hidden md:flex space-x-4 items-center">
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-4">
+              {/* User Avatar */}
+              <img
+                src="/path-to-avatar.jpg" // Replace with the user's profile image
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <button
+                onClick={logout}
+                className="bg-gray-200 text-[#FF3158] px-4 py-2 rounded hover:bg-gray-300 transition duration-300 ease-in-out">
+                Logout
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* SignIn/Login buttons */}
+              <Link
+                to="/signup"
+                className="bg-white text-[#FF3158] px-4 py-2 rounded hover:bg-gray-100 transition duration-300 ease-in-out">
+                SignIn
+              </Link>
+              <Link
+                to="/login"
+                className="bg-gray-200 text-[#FF3158] px-4 py-2 rounded hover:bg-gray-300 transition duration-300 ease-in-out">
+                Login
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Hamburger Icon */}
@@ -103,18 +131,35 @@ const Navbar = () => {
           Testimonial
         </a>
 
-        {/* Mobile SignIn/Login */}
+        {/* Mobile Auth Buttons */}
         <div className="px-4 py-2">
-          <Link
-            to="/signup"
-            className="bg-white text-[#FF3158] w-full py-2 rounded mb-2 hover:bg-gray-100 transition duration-300">
-            SignIn
-          </Link>
-          <Link
-            to="/login"
-            className="bg-gray-200 text-[#FF3158] w-full py-2 rounded hover:bg-gray-300 transition duration-300">
-            Login
-          </Link>
+          {isAuthenticated ? (
+            <div className="flex items-center justify-between">
+              <img
+                src="/path-to-avatar.jpg"
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full mr-2"
+              />
+              <button
+                onClick={logout}
+                className="bg-gray-200 text-[#FF3158] w-full py-2 rounded hover:bg-gray-300 transition duration-300">
+                Logout
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className="bg-white text-[#FF3158] w-full py-2 rounded mb-2 hover:bg-gray-100 transition duration-300">
+                SignIn
+              </Link>
+              <Link
+                to="/login"
+                className="bg-gray-200 text-[#FF3158] w-full py-2 rounded hover:bg-gray-300 transition duration-300">
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </nav>
